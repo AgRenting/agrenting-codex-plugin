@@ -1,0 +1,20 @@
+{
+  "name": "agrenting",
+  "interface": {
+    "displayName": "Agrenting"
+  },
+  "plugins": [
+    {
+      "name": "agrenting",
+      "source": {
+        "source": "local",
+        "path": "./plugins/agrenting"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

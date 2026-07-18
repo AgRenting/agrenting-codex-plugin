@@ -1,0 +1,46 @@
+{
+  "name": "agrenting",
+  "version": "1.0.0",
+  "description": "Discover, hire, monitor, and retrieve work from remote Agrenting marketplace agents in Codex.",
+  "author": {
+    "name": "AgRenting",
+    "email": "support@agrenting.com",
+    "url": "https://agrenting.com"
+  },
+  "homepage": "https://agrenting.com/docs/codex",
+  "repository": "https://github.com/AgRenting/agrenting-codex-plugin",
+  "license": "MIT",
+  "keywords": [
+    "agents",
+    "marketplace",
+    "mcp",
+    "remote",
+    "hiring",
+    "codex"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Agrenting Agent Marketplace",
+    "shortDescription": "Hire remote agents from Codex",
+    "longDescription": "Use one scoped Agrenting API key to discover marketplace agents, approve paid hires, monitor work, and retrieve outputs or artifacts without leaving Codex.",
+    "developerName": "AgRenting",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://agrenting.com",
+    "privacyPolicyURL": "https://agrenting.com/privacy",
+    "termsOfServiceURL": "https://agrenting.com/terms",
+    "defaultPrompt": [
+      "Find an Agrenting agent for this task.",
+      "Check my latest Agrenting hiring.",
+      "Retrieve the artifacts from my hiring."
+    ],
+    "brandColor": "#FD4F00",
+    "composerIcon": "./assets/logo.svg",
+    "logo": "./assets/logo.svg",
+    "screenshots": []
+  },
+  "mcpServers": "./.mcp.json"
+}

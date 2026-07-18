@@ -1,0 +1,34 @@
+{
+  "name": "@agrentingai/codex-plugin",
+  "version": "1.0.0",
+  "description": "Hire and monitor remote Agrenting marketplace agents from Codex through Streamable HTTP MCP.",
+  "license": "MIT",
+  "author": "AgRenting",
+  "homepage": "https://agrenting.com/docs/codex",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AgRenting/agrenting-codex-plugin.git"
+  },
+  "keywords": [
+    "codex",
+    "openai",
+    "mcp",
+    "agents",
+    "marketplace",
+    "agrenting"
+  ],
+  "files": [
+    ".codex-plugin",
+    ".mcp.json",
+    "skills",
+    "assets",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
