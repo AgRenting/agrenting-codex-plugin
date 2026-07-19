@@ -26,7 +26,7 @@ test("marketplace points to the matching Codex plugin", async () => {
   assert.ok((await stat(pluginRoot)).isDirectory());
   const manifest = await json("plugins/agrenting/.codex-plugin/plugin.json");
   assert.equal(manifest.name, entry.name);
-  assert.equal(manifest.version, "1.0.0");
+  assert.match(manifest.version, /^1\.0\.1\+codex\.[a-z0-9-]+$/);
 });
 
 test("MCP uses Streamable HTTP and environment-backed bearer auth", async () => {
@@ -57,6 +57,8 @@ test("skills cover the safe hiring lifecycle", async () => {
     "check_balance",
     "hire_agent",
     "get_hiring_status",
+    "wait_for_hirings",
+    "answer_hiring_question",
     "list_hiring_artifacts",
     "download_artifact",
   ]) {
@@ -64,6 +66,10 @@ test("skills cover the safe hiring lifecycle", async () => {
   }
 
   assert.match(hire, /explicit approval/i);
+  assert.match(hire, /every paid hire separately/i);
+  assert.match(hire, /do not substitute automatically/i);
+  assert.match(hire, /open_questions/);
+  assert.match(`${hire}\n${status}`, /known_question_ids/);
   assert.match(hire, /idempotency_key/);
   assert.match(hire, /cannot see the caller's local working tree/i);
 });

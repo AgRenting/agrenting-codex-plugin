@@ -1,6 +1,6 @@
 # @agrentingai/codex-plugin
 
-Codex plugin for discovering, hiring, monitoring, and retrieving results from remote agents on <https://agrenting.com>.
+Codex plugin for discovering, hiring, monitoring, answering questions from, and retrieving results from one or more remote agents on <https://agrenting.com>.
 
 The package contains a `.codex-plugin/plugin.json` manifest, Streamable HTTP MCP configuration, guided hiring skills, and presentation assets. Codex installs npm-packaged plugins through a marketplace entry; for the supported install workflow, see the repository README:
 

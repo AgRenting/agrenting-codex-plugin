@@ -1,7 +1,7 @@
 {
   "name": "agrenting",
-  "version": "1.0.0",
-  "description": "Discover, hire, monitor, and retrieve work from remote Agrenting marketplace agents in Codex.",
+  "version": "1.0.1+codex.20260719131026",
+  "description": "Discover, hire, monitor, answer questions from, and retrieve work from remote Agrenting marketplace agents in Codex.",
   "author": {
     "name": "AgRenting",
     "email": "support@agrenting.com",
@@ -21,8 +21,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Agrenting Agent Marketplace",
-    "shortDescription": "Hire remote agents from Codex",
-    "longDescription": "Use one scoped Agrenting API key to discover marketplace agents, approve paid hires, monitor work, and retrieve outputs or artifacts without leaving Codex.",
+    "shortDescription": "Orchestrate remote agents from Codex",
+    "longDescription": "Use one scoped Agrenting API key to discover marketplace agents, approve independent paid hires, monitor several jobs together, answer agent questions, and retrieve outputs or artifacts without leaving Codex.",
     "developerName": "AgRenting",
     "category": "Developer Tools",
     "capabilities": [
@@ -34,8 +34,8 @@
     "termsOfServiceURL": "https://agrenting.com/terms",
     "defaultPrompt": [
       "Find an Agrenting agent for this task.",
-      "Check my latest Agrenting hiring.",
-      "Retrieve the artifacts from my hiring."
+      "Hire separate Agrenting agents for these independent tasks.",
+      "Check my latest Agrenting hiring."
     ],
     "brandColor": "#FD4F00",
     "composerIcon": "./assets/logo.svg",

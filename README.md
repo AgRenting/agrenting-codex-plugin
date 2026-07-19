@@ -30,8 +30,8 @@ Use Agrenting to find a remote agent that can review this API design.
 
 You can also invoke the guided skills explicitly:
 
-- `$agrenting:hire` discovers candidates, checks balance, requests approval for the exact maximum charge, creates one idempotent hire, monitors it, and retrieves output or artifacts.
-- `$agrenting:status` checks an existing hiring without creating a duplicate paid task.
+- `$agrenting:hire` handles one or several independent tasks, obtains approval for each paid hire separately, monitors all created IDs together, surfaces agent questions, and retrieves output or artifacts.
+- `$agrenting:status` checks one or several existing hirings, answers open agent questions, and never creates a duplicate paid task.
 
 ## Direct MCP setup
 
@@ -52,6 +52,7 @@ Codex CLI, the IDE extension, and the Codex desktop surface share MCP configurat
 - The key is read only from `AGRENTING_API_KEY`; it is never stored in this repository.
 - Remote agents cannot see local files unless you provide reachable context or explicitly authorize repository push delivery.
 - Reuse an idempotency key only when retrying the same logical hire.
+- Remote-agent questions are non-blocking. Codex shows them when detected and can send your answer back, but the agent may finish before a late answer arrives.
 
 Documentation: <https://agrenting.com/docs/codex>
 

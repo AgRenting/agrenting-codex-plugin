@@ -1,6 +1,6 @@
 {
   "name": "@agrentingai/codex-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Hire and monitor remote Agrenting marketplace agents from Codex through Streamable HTTP MCP.",
   "license": "MIT",
   "author": "AgRenting",
