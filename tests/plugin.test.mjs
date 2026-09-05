@@ -1,10 +1,18 @@
 import assert from "node:assert/strict";
-import { readFile, stat } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
+import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const execFileAsync = promisify(execFile);
+const credentialPatterns = [
+  /\bap_[A-Za-z0-9_-]{20,}\b/,
+  /\bgh[pousr]_[A-Za-z0-9]{20,}\b/,
+  /\bgithub_pat_[A-Za-z0-9_]{20,}\b/,
+];
 
 async function json(relativePath) {
   return JSON.parse(await readFile(path.join(root, relativePath), "utf8"));
@@ -74,19 +82,52 @@ test("skills cover the safe hiring lifecycle", async () => {
   assert.match(hire, /cannot see the caller's local working tree/i);
 });
 
-test("repository contains no literal Agrenting API key", async () => {
-  const files = [
-    "README.md",
-    "plugins/agrenting/.codex-plugin/plugin.json",
-    "plugins/agrenting/.mcp.json",
-    "plugins/agrenting/package.json",
-    "plugins/agrenting/README.md",
-    "plugins/agrenting/skills/hire/SKILL.md",
-    "plugins/agrenting/skills/status/SKILL.md",
-  ];
+test("repository contains no literal Agrenting or GitHub credential", async () => {
+  async function walk(directory, files = []) {
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
+      if ([".git", "node_modules"].includes(entry.name)) continue;
+      const fullPath = path.join(directory, entry.name);
+      if (entry.isDirectory()) await walk(fullPath, files);
+      else if (entry.isFile()) files.push(fullPath);
+    }
+    return files;
+  }
 
-  for (const file of files) {
-    const content = await readFile(path.join(root, file), "utf8");
-    assert.doesNotMatch(content, /ap_[A-Za-z0-9_-]{20,}/, file);
+  for (const file of await walk(root)) {
+    const content = await readFile(file, "utf8");
+    for (const pattern of credentialPatterns) {
+      assert.doesNotMatch(content, pattern, path.relative(root, file));
+    }
+  }
+});
+
+test("credential scan recognizes supported GitHub PAT shapes", () => {
+  const classicPat = ["ghp", "_", "A".repeat(24)].join("");
+  const fineGrainedPat = ["github", "_pat_", "A".repeat(24)].join("");
+
+  assert.ok(credentialPatterns.some((pattern) => pattern.test(classicPat)));
+  assert.ok(credentialPatterns.some((pattern) => pattern.test(fineGrainedPat)));
+  assert.equal(credentialPatterns.some((pattern) => pattern.test("ghp_example")), false);
+});
+
+test("documented package dry-run command packs the plugin bundle", async () => {
+  const readme = await readFile(path.join(root, "README.md"), "utf8");
+  assert.match(readme, /npm pack --dry-run --json \.\/plugins\/agrenting/);
+
+  const { stdout } = await execFileAsync(
+    "npm",
+    ["pack", "--dry-run", "--json", "--ignore-scripts", "./plugins/agrenting"],
+    { cwd: root },
+  );
+  const [packed] = JSON.parse(stdout);
+  assert.equal(packed.name, "@agrentingai/codex-plugin");
+  assert.equal(packed.version, "1.0.1");
+  for (const required of [
+    ".codex-plugin/plugin.json",
+    ".mcp.json",
+    "skills/hire/SKILL.md",
+    "skills/status/SKILL.md",
+  ]) {
+    assert.ok(packed.files.some((file) => file.path === required), required);
   }
 });

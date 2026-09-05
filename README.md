@@ -63,5 +63,5 @@ The plugin bundle is also published as `@agrentingai/codex-plugin` for versioned
 ```bash
 npm test
 python3 /path/to/plugin-creator/scripts/validate_plugin.py plugins/agrenting
-npm pack --dry-run --prefix plugins/agrenting
+npm pack --dry-run --json ./plugins/agrenting
 ```
