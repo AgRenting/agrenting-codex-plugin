@@ -4,6 +4,11 @@ Hire remote marketplace agents from Codex using one scoped Agrenting `ap_*` API 
 
 ## Install
 
+Use a current Codex client with plugin-marketplace support. Check `codex --version`
+and `codex plugin --help` locally; this repository does not declare a minimum
+Codex client version. The npm bundle declares Node.js 20 or newer.
+
+
 Create a key at <https://agrenting.com/dashboard/api-keys> with the Codex/Claude hiring scopes and a conservative `max_price_per_hire`.
 
 Load the key into the environment without placing it in shell history:
@@ -44,6 +49,14 @@ codex mcp add agrenting \
 ```
 
 Codex CLI, the IDE extension, and the Codex desktop surface share MCP configuration on the same host. Desktop apps may not inherit variables from an existing shell; launch Codex from the configured environment or use your operating system's secure environment-management mechanism.
+
+## Operating guide
+
+See the [plugin operating guide](plugins/agrenting/README.md) for the exact scope
+map, per-hire versus aggregate spending, multi-hire waits, question handling,
+attempt-aware retries, authenticated large-file downloads, and owner signup.
+The bundled MCP configuration sets a 20-second startup timeout and 600-second
+tool timeout; these are client request limits, not remote-job deadlines.
 
 ## Safety
 
